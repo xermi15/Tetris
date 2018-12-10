@@ -1,47 +1,88 @@
-var estatActual = function () {
-    taulerActual = new Array(25);
-    taulerActual[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[1] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[2] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[3] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[4] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[5] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[6] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[7] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[8] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[9] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[10] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[11] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[13] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[14] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[15] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[17] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[18] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[19] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[20] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[21] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[22] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[23] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    taulerActual[24] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var jocActual = {
+    taulerActual: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ],
 
-    estatTauler: 1;
-    puntuacio: 0;
-    puntuacioMax: 0;
-    pesaActual: "new Object";
-    pesaSeguent: "new Object";
-    comptadorPesa: new Array(7);
-    interval: 1000;
+    estatTauler: 1,
+    puntuacio: 0,
+    puntuacioMax: 0,
+    pesaActual: "new Object",
+    pesaSeguent: "new Object",
+    comptadorPesa: new Array(7),
+    interval: 1000,
 
-    iniciarJoc: function () {}
-    obtenirNovaPesa: function () {}
-    tecla: function () {}
-    movimentAuto: function (interval) {}
-}
-
-var tetris = {
-    pecesQueVanSorgint: new Array()
+    iniciarJoc: function () {
+    this.taulerActual[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[1] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[2] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[3] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[4] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[5] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[6] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[7] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[8] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[9] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[10] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[11] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[13] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[14] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[15] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[17] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[18] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[19] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[20] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[21] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[22] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[23] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    this.taulerActual[24] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+},
+//    obtenirNovaPesa: function () {}
+//    tecla: function () {}
+//    movimentAuto: function (interval) {}
+    pintar : function(){
+        var pintarTauler = "<table border='1'>";
+        for (var i = 0; i < 25; i++) {
+            pintarTauler += "<tr>";
+            for (var j = 0; j < 10; j++) {
+                pintarTauler += "<td>";
+                if (this.taulerActual[i][j] == 1) {
+                    pintarTauler += "X";
+                } else {
+                    pintarTauler += "0";
+                }
+                pintarTauler += "</td>";
+            }
+            pintarTauler += "</tr>";
+        }
+        pintarTauler += "</table>";
+        return pintarTauler;
+    }
 }
 
 var Pesa = function (forma, color /*, x, y*/ ) {
@@ -50,26 +91,6 @@ var Pesa = function (forma, color /*, x, y*/ ) {
     //this.x = x;
     //this.y = y;
 };
-
-Pesa.prototype.moureDreta = function () {
-    if ((x - 1) > 0) {
-        x--;
-        return true;
-    } else {
-        return false;
-    }
-};
-
-Pesa.prototype.moureEsquerra = function () {
-    if ((x + 1) < 14) {
-        x++;
-        return true;
-    } else {
-        return false;
-    }
-};
-
-
 
 function GeneraPesaAleatoria() {
     var peces = [
@@ -85,37 +106,48 @@ function GeneraPesaAleatoria() {
 }
 
 console.log(GeneraPesaAleatoria());
-console.log(GeneraPesaAleatoria());
-console.log(GeneraPesaAleatoria());
-console.log(GeneraPesaAleatoria());
-console.log(GeneraPesaAleatoria());
-console.log(GeneraPesaAleatoria());
 
-
+//Funcio que rep una pesa i la pinta en una taula
 Pesa.prototype.pintar = function () {
     var resultat = "<table border='1'>";
     for (var i = 0; i < this.forma.length; i++) {
-        resultat = resultat + "<tr>"
+        resultat += "<tr>"
         for (var j = 0; j < this.forma[i].length; j++) {
-            resultat = resultat + "<td>";
+            resultat += "<td>";
             if (this.forma[i][j] == 1) {
-                resultat = resultat + "X"
+                resultat += "X"
             } else {
-                resultat = resultat + "-"
+                resultat += "-"
             };
-            resultat = resultat + "</td>";
+            resultat += "</td>";
         }
-        resultat = resultat + "</tr>";
+        resultat += "</tr>";
     }
-    resultat = resultat + "</table>";
+    resultat += "</table>";
     return resultat
 };
 
-var pa = GeneraPesaAleatoria();
-var p = new Pesa(pa[0], pa[1]);
-//document.write(p.pintar());
-document.getElementById("original").innerHTML = p.pintar();
+//Funcio per moure una pesa cap a l'esquerra sempre que es pugui
+Pesa.prototype.moureEsquerra = function () {
+    if ((x - 1) > 0) {
+        x--;
+        return true;
+    } else {
+        return false;
+    }
+};
 
+//Funcio per moure una pesa cap a la dreta sempre que es pugui
+Pesa.prototype.moureDreta = function () {
+    if ((x + 1) < 10) {
+        x++;
+        return true;
+    } else {
+        return false;
+    }
+};
+
+//Funcio per girar una pesa a la dreta
 Pesa.prototype.rotarDreta = function () {
     var formaNova = new Array();
     for (var i = 0; i < this.forma.length; i++) {
@@ -126,6 +158,27 @@ Pesa.prototype.rotarDreta = function () {
     }
     this.forma = formaNova;
 }
-p.rotarDreta();
 
-document.getElementById("girada").innerHTML = p.pintar();
+//Funcio per girar una pesa a l'esquerra -> la girem tres vegades a la dreta
+Pesa.prototype.rotarEsquerra = function () {
+    Pesa.rotarDreta;
+    Pesa.rotarDreta;
+    Pesa.rotarDreta;
+}
+
+var pa = GeneraPesaAleatoria();
+var p = new Pesa(pa[0], pa[1]);
+//document.write(p.pintar());
+
+
+window.onload = function() {
+
+    document.getElementById("pesa1").innerHTML = p.pintar();
+    p.rotarDreta();
+    document.getElementById("pesa2").innerHTML = p.pintar();
+    p.rotarEsquerra();
+    document.getElementById("pesa3").innerHTML = p.pintar();
+
+    document.getElementById("tetris").innerHTML = jocActual.pintar();
+}
+
