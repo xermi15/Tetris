@@ -2,6 +2,23 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-#tetris {
+header {
     text-align: center;
+}
+
+#tetris {
+    position: relative;
+    padding: 3em;
+
+}
+
+.tauler {
+    border: 1px solid black;
+    margin: 0, auto;
+    width: 10em;
+    text-align: center;
+}
+
+th, td {
+    border: 1px solid black;
 }

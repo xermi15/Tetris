@@ -66,21 +66,19 @@ var jocActual = {
 //    tecla: function () {}
 //    movimentAuto: function (interval) {}
     pintar : function(){
-        var pintarTauler = "<table border='1'>";
+        var pintarTauler = "<div class='tauler'>";
         for (var i = 0; i < 25; i++) {
-            pintarTauler += "<tr>";
             for (var j = 0; j < 10; j++) {
-                pintarTauler += "<td>";
                 if (this.taulerActual[i][j] == 1) {
                     pintarTauler += "X";
                 } else {
                     pintarTauler += "0";
                 }
-                pintarTauler += "</td>";
+                pintarTauler += " ";
             }
-            pintarTauler += "</tr>";
+            pintarTauler += "<br>";
         }
-        pintarTauler += "</table>";
+        pintarTauler += "</div>";
         return pintarTauler;
     }
 }
@@ -172,13 +170,6 @@ var p = new Pesa(pa[0], pa[1]);
 
 
 window.onload = function() {
-
-    document.getElementById("pesa1").innerHTML = p.pintar();
-    p.rotarDreta();
-    document.getElementById("pesa2").innerHTML = p.pintar();
-    p.rotarEsquerra();
-    document.getElementById("pesa3").innerHTML = p.pintar();
-
     document.getElementById("tetris").innerHTML = jocActual.pintar();
 }
 
