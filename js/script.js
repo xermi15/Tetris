@@ -66,7 +66,7 @@ var jocActual = {
 //    tecla: function () {}
 //    movimentAuto: function (interval) {}
     pintar : function(){
-        var pintarTauler = "<div class='tauler'>";
+        var pintarTauler = "<div>";
         for (var i = 0; i < 25; i++) {
             for (var j = 0; j < 10; j++) {
                 if (this.taulerActual[i][j] == 1) {
@@ -83,40 +83,69 @@ var jocActual = {
     }
 }
 
-var Pesa = function (forma, color /*, x, y*/ ) {
+var iterar;
+var keyPress;
+
+var Pesa = function (forma, color, x, y) {
     this.forma = forma;
     this.color = color;
-    //this.x = x;
-    //this.y = y;
+    this.x = x;
+    this.y = y;
 };
 
 function GeneraPesaAleatoria() {
     var peces = [
-                 [[[0, 0, 0, 0], [0, 1, 1, 0], [0, 1, 1, 0], [0, 0, 0, 0]], "groc"],
-                 [[[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0]], "lila"],
-                 [[[0, 0, 0, 0], [0, 1, 1, 0], [1, 1, 0, 0], [0, 0, 0, 0]], "verd"],
-                 [[[0, 0, 0, 0], [0, 1, 1, 0], [0, 0, 1, 1], [0, 0, 0, 0]], "roig"],
-                 [[[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0]], "blau"],
-                 [[[0, 1, 1, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0]], "taronga"],
-                 [[[0, 0, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]], "morat"]]
+                 [[[0, 0, 0, 0],
+                   [0, 1, 1, 0],
+                   [0, 1, 1, 0],
+                   [0, 0, 0, 0]], "groc"],
+
+                 [[[0, 1, 0, 0],
+                   [0, 1, 0, 0],
+                   [0, 1, 0, 0],
+                   [0, 1, 0, 0]], "lila"],
+
+                 [[[0, 0, 0, 0],
+                   [0, 1, 1, 0],
+                   [1, 1, 0, 0],
+                   [0, 0, 0, 0]], "verd"],
+
+                 [[[0, 0, 0, 0],
+                   [0, 1, 1, 0],
+                   [0, 0, 1, 1],
+                   [0, 0, 0, 0]], "roig"],
+
+                 [[[0, 1, 0, 0],
+                   [0, 1, 0, 0],
+                   [0, 1, 1, 0],
+                   [0, 0, 0, 0]], "blau"],
+
+                 [[[0, 1, 1, 0],
+                   [0, 1, 0, 0],
+                   [0, 1, 0, 0],
+                   [0, 0, 0, 0]], "taronga"],
+
+                 [[[0, 0, 0, 0],
+                   [1, 1, 1, 0],
+                   [0, 1, 0, 0],
+                   [0, 0, 0, 0]], "morat"]];
+
     var numeroAleatori = Math.round(Math.random() * 6);
     return peces[numeroAleatori];
 }
 
-console.log(GeneraPesaAleatoria());
-
 //Funcio que rep una pesa i la pinta en una taula
 Pesa.prototype.pintar = function () {
-    var resultat = "<table border='1'>";
+    var resultat = "<table>";
     for (var i = 0; i < this.forma.length; i++) {
-        resultat += "<tr>"
+        resultat += "<tr>";
         for (var j = 0; j < this.forma[i].length; j++) {
             resultat += "<td>";
             if (this.forma[i][j] == 1) {
-                resultat += "X"
+                resultat += "X";
             } else {
-                resultat += "-"
-            };
+                resultat += "-";
+            }
             resultat += "</td>";
         }
         resultat += "</tr>";
@@ -145,6 +174,16 @@ Pesa.prototype.moureDreta = function () {
     }
 };
 
+//Funcio per moure una pesa cap a abaix sempre que es pugui
+Pesa.prototype.moureAbaix = function () {
+    if ((y - 1) > 0) {
+        y--;
+        return true;
+    } else {
+        return false;
+    }
+};
+
 //Funcio per girar una pesa a la dreta
 Pesa.prototype.rotarDreta = function () {
     var formaNova = new Array();
@@ -164,12 +203,85 @@ Pesa.prototype.rotarEsquerra = function () {
     Pesa.rotarDreta;
 }
 
-var pa = GeneraPesaAleatoria();
-var p = new Pesa(pa[0], pa[1]);
+Pesa.prototype.baixarAuto = function () {
+
+}
+var p1 = GeneraPesaAleatoria();
+var p2 = GeneraPesaAleatoria();
+var pesa1 = new Pesa(p1[0], p1[1], 0, 3);
+var pesa2 = new Pesa(p1[0], p1[1], 0, 3);
+
 //document.write(p.pintar());
 
-
-window.onload = function() {
-    document.getElementById("tetris").innerHTML = jocActual.pintar();
+function colocarPesaInici(pesa) {
+    for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+            if (pesa.forma[i][j] == 1) {
+                jocActual.taulerActual[pesa.x + i][pesa.y + j] = "1";
+            }
+        }
+    }
 }
 
+
+//function fInterval() {
+//    //var pesa = GeneraPesaAleatoria();
+//    colocarPesaInici(pesa);
+//
+//    //var element = document.getElementById("all");
+//	//document.onkeydown = dirKeyPress;
+//    //comprovarDireccio(keyPress);
+//    //mourePesa();
+//
+//    document.getElementById("tetris").innerHTML = jocActual.pintar();
+//    console.log(c);
+//    c++;
+//
+//}
+//
+//function colocarPesaInici(pesa) {
+//
+//}
+//
+//window.onload = function() {
+//
+//    iterar = setInterval(fInterval, interval);
+//
+//}
+
+    window.onload = function() {
+    colocarPesaInici(pesa1);
+    document.getElementById("tetris").innerHTML = jocActual.pintar();
+
+}
+
+
+
+
+
+
+
+
+
+//Funcio encarregada de moure el jugador
+//- Comprovar que la direccio introduida sigui valida i assignarla a la pesa
+//- En el cas de que no sigui valida, no es moura
+function mourePesa(jugador){
+
+}
+
+//Funcio encarregada de llegir la direccio introduida per teclat
+//- Assigna la direccio introduida a una variable
+function dirKeyPress(e){
+	var keyDown = document.all ? e.which : e.key;
+    //La direccio a dalt i a baix estan invertides!
+    if (keyDown == "ArrowDown"){
+		keyPress = 1;
+	}
+	if (keyDown == "ArrowRight"){
+		keyPress = 2;
+	}
+	if (keyDown == "ArrowLeft"){
+		keyPress = 4;
+	}
+}
