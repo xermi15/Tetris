@@ -96,10 +96,10 @@ var Joc = {
         var col = true;
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
-                if (this.pesaActual.forma[i][j-1] != 0) {
-                    if (this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j-1] != 0) {col = false;}
+                if (this.pesaActual.forma[i][j] != 0) {
+                    if (this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j] != 0) {col = false;}
                     if (this.pesaActual.x + i < 0 || this.pesaActual.x + i > 24) {col = false;}
-                    if (this.pesaActual.y + j - 1 < 0 || this.pesaActual.y + j - 1 > 9) {col = false;}
+                    if (this.pesaActual.y + j < 0 || this.pesaActual.y + j > 9) {col = false;}
                 }
             }
         }
@@ -112,7 +112,7 @@ var iterar;
 var keyPress;
 
 
-//---------------------------------Objecte Pesa---------------------------------
+//---------------------------------Objecte Pesa---------------------------------------
 
 var Pesa = function (forma, color, x, y) {
     this.forma = forma;
@@ -166,7 +166,7 @@ function GeneraPesaAleatoria() {
 
 //Funcio que rep una pesa i la pinta en una taula
 Pesa.prototype.pintarTaulaPesa = function () {
-    var resultat = "<table>";
+    var resultat = "<table border='1'>";
     for (var i = 0; i < this.forma.length; i++) {
         resultat += "<tr>";
         for (var j = 0; j < this.forma[i].length; j++) {
@@ -189,22 +189,29 @@ Pesa.prototype.pintarTaulaPesa = function () {
 
 //Funcio per moure una pesa cap a l'esquerra sempre que es pugui
 Pesa.prototype.moureEsquerra = function () {
-    if ((x - 1) > 0) {
-        x--;
+    if ((y - 1) > 0) {
+        y--;
     }
 };
 
 //Funcio per moure una pesa cap a la dreta sempre que es pugui
 Pesa.prototype.moureDreta = function () {
-    if ((x + 1) < 10) {
-        x++;
+    if ((y + 1) < 9) {
+        y++;
     }
 };
 
 //Funcio per moure una pesa cap a abaix sempre que es pugui
 Pesa.prototype.moureAbaix = function () {
-    if ((y - 1) > 0) {
-        y--;
+    if ((x + 1) <= 25) {
+        x++;
+    }
+};
+
+//Funcio per moure una pesa cap a abaix sempre que es pugui
+Pesa.prototype.retornarAdalt = function () {
+    if ((x - 1) >= 0) {
+        x--;
     }
 };
 
