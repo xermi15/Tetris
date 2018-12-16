@@ -118,7 +118,8 @@ var Joc = {
             pintarTauler += "<br>";
         }
         pintarTauler += "</div>";
-        document.getElementById("tetris").innerHTML = pintarTauler;
+        //document.getElementById("tetris").innerHTML = pintarTauler;
+        return pintarTauler;
     },
 
 
@@ -127,26 +128,18 @@ var Joc = {
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
-                    if (this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j] != 0) { col = true }
-                    if (this.pesaActual.x + i < 0 || this.pesaActual.x + i > 24) { col = true }
-                    if (this.pesaActual.y + j < 0 || this.pesaActual.y + j > 9) { col = true }
+                    if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { col = true; }
+                    if (this.pesaActual.x + i < 0 || this.pesaActual.x + i > 24) { col = true; }
+                    if (this.pesaActual.y + j < 0 || this.pesaActual.y + j > 9) { col = true; }
                 }
             }
         }
         return col;
-    },
+    }
 
 }
 
-var iterar;
-var keyPress;
 
-function iteracio(){
-    Joc.pintar();
-    Joc.movimentAuto();
-    document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
-    document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
-}
 
 
 
@@ -200,7 +193,7 @@ function GeneraPesaAleatoria() {
 
     var numeroAleatori = Math.round(Math.random() * 6);
     return peces[numeroAleatori];
-}
+};
 
 //Funcio que rep una pesa i la pinta en una taula
 Pesa.prototype.pintarTaulaPesa = function () {
@@ -228,7 +221,7 @@ Pesa.prototype.pintarPesaTauler = function () {
             if (this.forma[i][j] == 1) { Joc.taulerActual[this.x + i][this.y + j] = 1 }
         }
     }
-}
+};
 
 
 
@@ -236,22 +229,22 @@ Pesa.prototype.pintarPesaTauler = function () {
 
 //Funcio per moure una pesa cap a l'esquerra sempre que es pugui
 Pesa.prototype.moureEsquerra = function () {
-    if ((y - 1) > 0) { y-- }
+    if ((this.y - 1) > 0) { this.y-- }
 };
 
 //Funcio per moure una pesa cap a la dreta sempre que es pugui
 Pesa.prototype.moureDreta = function () {
-    if ((y + 1) < 9) { y++ }
+    if ((this.y + 1) < 9) { this.y++ }
 };
 
 //Funcio per moure una pesa cap a abaix sempre que es pugui
 Pesa.prototype.moureAbaix = function () {
-    if ((x + 1) <= 25) { x++ }
+    if ((this.x + 1) <= 25) { this.x++ }
 };
 
 //Funcio per moure una pesa cap a abaix sempre que es pugui
 Pesa.prototype.retornarAdalt = function () {
-    if ((x - 1) >= 0) { x-- }
+    if ((this.x - 1) >= 0) { this.x-- }
 };
 
 //Funcio per girar una pesa a la dreta
@@ -264,14 +257,14 @@ Pesa.prototype.rotarDreta = function () {
         }
     }
     this.forma = formaNova;
-}
+};
 
 //Funcio per girar una pesa a l'esquerra -> la girem tres vegades a la dreta
 Pesa.prototype.rotarEsquerra = function () {
     Pesa.rotarDreta;
     Pesa.rotarDreta;
     Pesa.rotarDreta;
-}
+};
 
 
 
@@ -292,27 +285,31 @@ Pesa.prototype.rotarEsquerra = function () {
 //    document.getElementById("tetris").innerHTML = Joc.pintar();
 //    console.log(c);
 //    c++;
-//
-//}
-//
-//function colocarPesaInici(pesa) {
-//
-//}
-//
-//window.onload = function() {
-//
-//    iterar = setInterval(fInterval, interval);
-//
-//}
 
-window.onload = function () {
+
+var iterar;
+var keyPress;
+
+function iteracio(){
+    //Joc.pintar();
+    document.getElementById("tetris").innerHTML = Joc.pintar();
+    Joc.movimentAuto();
+    document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
+    document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
+};
+
+function start(){
     Joc.iniciarJoc();
     Joc.pesaActual.pintarPesaTauler();
-    Joc.pintar();
+    document.getElementById("tetris").innerHTML = Joc.pintar();
     document.getElementById("pesaActual").innerHTML = Joc.pesa1.pintarTaulaPesa();
     document.getElementById("pesaSeguent").innerHTML = Joc.pesa2.pintarTaulaPesa();
-    iterar = setInterval(iteracio, Joc.interval);
+
+
 }
+
+iterar = setInterval(iteracio, Joc.interval);
+
 
 
 
