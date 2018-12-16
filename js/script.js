@@ -204,7 +204,7 @@ Pesa.prototype.pintarTaulaPesa = function () {
             resultat += "<td>";
             if (this.forma[i][j] == 1) { resultat += "X" }
             else {
-                resultat += "-";
+                resultat += "&nbsp;&nbsp;";
             }
             resultat += "</td>";
         }

@@ -22,4 +22,8 @@ th, td {
     border: 1px solid black;
 }
 
+.row {
+    padding: 3em;
+}
+
 
