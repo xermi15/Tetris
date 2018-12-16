@@ -70,19 +70,48 @@ var Joc = {
         this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
     },
 
-    obtenirNovaPesa: function () {},
     tecla: function () {},
-    movimentAuto: function (interval) {},
+
+    movimentAuto: function () {
+        this.pesaActual.moureAbaix();
+
+        //un cop hem mogut la pesa pintem el mapa sense la pesa
+        for (var i = this.taulerActual.length - 1; i >= 0; i--) {
+            for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
+                if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 0 }
+            }
+        }
+
+        //i comprovem si xoca
+        if (this.colisio()) {
+
+            //tornem la pesa a la posicio original abans de la colisio
+            this.pesaActual.retornarAdalt();
+            //la tornem a pintar al tauler
+            this.pesaActual.pintarPesaTauler();
+            //convertim la pesa actual en la seguent que teniem preparada
+            this.pesaActual = this.pesaSeguent;
+            //i generem una nova pesa per despres
+            var p2 = GeneraPesaAleatoria();
+            this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
+
+            //abans de pintar la nova pesa al tauler, convertim l'antiga en mur inferior
+            for (var i = this.taulerActual.length - 1; i >= 0; i--) {
+                for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
+                    if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 10 }
+                }
+            }
+        }
+
+        else { this.pesaActual.pintarPesaTauler(); }
+    },
 
     pintar: function () {
         var pintarTauler = "<div>";
         for (var i = 0; i < 25; i++) {
             for (var j = 0; j < 10; j++) {
-                if (this.taulerActual[i][j] == 1) {
-                    pintarTauler += "X";
-                } else {
-                    pintarTauler += "0";
-                }
+                if (this.taulerActual[i][j] == 1) { pintarTauler += "X" }
+                else { pintarTauler += "0" }
                 pintarTauler += " ";
             }
             pintarTauler += "<br>";
@@ -93,13 +122,13 @@ var Joc = {
 
 
     colisio: function () {
-        var col = true;
+        var col = false;
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
-                    if (this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j] != 0) {col = false;}
-                    if (this.pesaActual.x + i < 0 || this.pesaActual.x + i > 24) {col = false;}
-                    if (this.pesaActual.y + j < 0 || this.pesaActual.y + j > 9) {col = false;}
+                    if (this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j] != 0) { col = true }
+                    if (this.pesaActual.x + i < 0 || this.pesaActual.x + i > 24) { col = true }
+                    if (this.pesaActual.y + j < 0 || this.pesaActual.y + j > 9) { col = true }
                 }
             }
         }
@@ -171,9 +200,8 @@ Pesa.prototype.pintarTaulaPesa = function () {
         resultat += "<tr>";
         for (var j = 0; j < this.forma[i].length; j++) {
             resultat += "<td>";
-            if (this.forma[i][j] == 1) {
-                resultat += "X";
-            } else {
+            if (this.forma[i][j] == 1) { resultat += "X" }
+            else {
                 resultat += "-";
             }
             resultat += "</td>";
@@ -185,12 +213,10 @@ Pesa.prototype.pintarTaulaPesa = function () {
 };
 
 //Funcio que pinta la pesa acual dins del tauler actual
-Pesa.prototype.pintarPesaTauler = function (){
+Pesa.prototype.pintarPesaTauler = function () {
     for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
-            if (this.forma[i][j] == 1) {
-                Joc.taulerActual[this.x + i][this.y + j] = "1";
-            }
+            if (this.forma[i][j] == 1) { Joc.taulerActual[this.x + i][this.y + j] = 1 }
         }
     }
 }
@@ -201,30 +227,22 @@ Pesa.prototype.pintarPesaTauler = function (){
 
 //Funcio per moure una pesa cap a l'esquerra sempre que es pugui
 Pesa.prototype.moureEsquerra = function () {
-    if ((y - 1) > 0) {
-        y--;
-    }
+    if ((y - 1) > 0) { y-- }
 };
 
 //Funcio per moure una pesa cap a la dreta sempre que es pugui
 Pesa.prototype.moureDreta = function () {
-    if ((y + 1) < 9) {
-        y++;
-    }
+    if ((y + 1) < 9) { y++ }
 };
 
 //Funcio per moure una pesa cap a abaix sempre que es pugui
 Pesa.prototype.moureAbaix = function () {
-    if ((x + 1) <= 25) {
-        x++;
-    }
+    if ((x + 1) <= 25) { x++ }
 };
 
 //Funcio per moure una pesa cap a abaix sempre que es pugui
 Pesa.prototype.retornarAdalt = function () {
-    if ((x - 1) >= 0) {
-        x--;
-    }
+    if ((x - 1) >= 0) { x-- }
 };
 
 //Funcio per girar una pesa a la dreta
@@ -251,7 +269,7 @@ Pesa.prototype.rotarEsquerra = function () {
 
 
 
-
+//Codi reciclat Pacman pendent d'aplicar
 
 //function fInterval() {
 //    //var pesa = GeneraPesaAleatoria();
@@ -279,7 +297,10 @@ Pesa.prototype.rotarEsquerra = function () {
 //}
 
 window.onload = function () {
-    colocarPesaInici(pesa1);
+    Joc.iniciarJoc();
+    Joc.pesaActual.pintarPesaTauler();
+    Joc.pintar();
+
     document.getElementById("tetris").innerHTML = Joc.pintar();
     document.getElementById("pesaActual").innerHTML = Joc.pesa1.pintarTaulaPesa();
     document.getElementById("pesaSeguent").innerHTML = Joc.pesa2.pintarTaulaPesa();
@@ -297,22 +318,24 @@ window.onload = function () {
 //Funcio encarregada de moure el jugador
 //- Comprovar que la direccio introduida sigui valida i assignarla a la pesa
 //- En el cas de que no sigui valida, no es moura
-function mourePesa(jugador) {
 
-}
+//function mourePesa(jugador) {
+
+//}
 
 //Funcio encarregada de llegir la direccio introduida per teclat
 //- Assigna la direccio introduida a una variable
-function dirKeyPress(e) {
-    var keyDown = document.all ? e.which : e.key;
-    //La direccio a dalt i a baix estan invertides!
-    if (keyDown == "ArrowDown") {
-        keyPress = 1;
-    }
-    if (keyDown == "ArrowRight") {
-        keyPress = 2;
-    }
-    if (keyDown == "ArrowLeft") {
-        keyPress = 4;
-    }
-}
+
+//function dirKeyPress(e) {
+//    var keyDown = document.all ? e.which : e.key;
+//    //La direccio a dalt i a baix estan invertides!
+//    if (keyDown == "ArrowDown") {
+//        keyPress = 1;
+//    }
+//    if (keyDown == "ArrowRight") {
+//        keyPress = 2;
+//    }
+//    if (keyDown == "ArrowLeft") {
+//        keyPress = 4;
+//    }
+//}
