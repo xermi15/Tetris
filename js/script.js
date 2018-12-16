@@ -111,13 +111,14 @@ var Joc = {
         for (var i = 0; i < 25; i++) {
             for (var j = 0; j < 10; j++) {
                 if (this.taulerActual[i][j] == 1) { pintarTauler += "X" }
+                else if (this.taulerActual[i][j] == 10) { pintarTauler += "M" }
                 else { pintarTauler += "0" }
                 pintarTauler += " ";
             }
             pintarTauler += "<br>";
         }
         pintarTauler += "</div>";
-        return pintarTauler;
+        document.getElementById("tetris").innerHTML = pintarTauler;
     },
 
 
@@ -139,6 +140,14 @@ var Joc = {
 
 var iterar;
 var keyPress;
+
+function iteracio(){
+    Joc.pintar();
+    Joc.movimentAuto();
+    document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
+    document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
+}
+
 
 
 //---------------------------------Objecte Pesa-----------------------------------
@@ -300,11 +309,9 @@ window.onload = function () {
     Joc.iniciarJoc();
     Joc.pesaActual.pintarPesaTauler();
     Joc.pintar();
-
-    document.getElementById("tetris").innerHTML = Joc.pintar();
     document.getElementById("pesaActual").innerHTML = Joc.pesa1.pintarTaulaPesa();
     document.getElementById("pesaSeguent").innerHTML = Joc.pesa2.pintarTaulaPesa();
-
+    iterar = setInterval(iteracio, Joc.interval);
 }
 
 
