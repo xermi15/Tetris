@@ -112,7 +112,7 @@ var iterar;
 var keyPress;
 
 
-//---------------------------------Objecte Pesa---------------------------------------
+//---------------------------------Objecte Pesa-----------------------------------
 
 var Pesa = function (forma, color, x, y) {
     this.forma = forma;
@@ -121,7 +121,7 @@ var Pesa = function (forma, color, x, y) {
     this.y = y;
 };
 
-//---------------------------------Generacio de peces---------------------------------
+//---------------------------------Funcions Pesa---------------------------------
 
 function GeneraPesaAleatoria() {
     var peces = [
@@ -184,6 +184,18 @@ Pesa.prototype.pintarTaulaPesa = function () {
     return resultat
 };
 
+//Funcio que pinta la pesa acual dins del tauler actual
+Pesa.prototype.pintarPesaTauler = function (){
+    for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+            if (this.forma[i][j] == 1) {
+                Joc.taulerActual[this.x + i][this.y + j] = "1";
+            }
+        }
+    }
+}
+
+
 
 //---------------------------------Moviments pesa---------------------------------
 
@@ -238,22 +250,7 @@ Pesa.prototype.rotarEsquerra = function () {
 
 
 
-var p1 = GeneraPesaAleatoria();
-var p2 = GeneraPesaAleatoria();
-var pesa1 = new Pesa(p1[0], p1[1], 0, 3);
-var pesa2 = new Pesa(p1[0], p1[1], 0, 3);
 
-//document.write(p.pintar());
-
-function colocarPesaInici(pesa) {
-    for (var i = 0; i < 4; i++) {
-        for (var j = 0; j < 4; j++) {
-            if (pesa.forma[i][j] == 1) {
-                Joc.taulerActual[pesa.x + i][pesa.y + j] = "1";
-            }
-        }
-    }
-}
 
 
 //function fInterval() {
