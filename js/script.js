@@ -34,7 +34,7 @@ var Joc = {
     puntuacioMax: 0,
     pesaActual: null,
     pesaSeguent: null,
-    comptadorPesa: [0,0,0,0,0,0,0],
+    comptadorPesa: [0, 0, 0, 0, 0, 0, 0],
     interval: 1000,
 
     iniciarJoc: function () {
@@ -68,13 +68,13 @@ var Joc = {
         var p2 = GeneraPesaAleatoria();
         this.pesaActual = new Pesa(p1[0], p1[1], 0, 3);
         this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
-},
+    },
 
     obtenirNovaPesa: function () {},
     tecla: function () {},
     movimentAuto: function (interval) {},
 
-    pintar : function(){
+    pintar: function () {
         var pintarTauler = "<div>";
         for (var i = 0; i < 25; i++) {
             for (var j = 0; j < 10; j++) {
@@ -89,7 +89,23 @@ var Joc = {
         }
         pintarTauler += "</div>";
         return pintarTauler;
-    }
+    },
+
+
+    colisio: function () {
+        var col = true;
+        for (var i = 0; i < this.pesaActual.forma.length; i++) {
+            for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
+                if (this.pesaActual.forma[i][j-1] != 0) {
+                    if (this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j-1] != 0) {col = false;}
+                    if (this.pesaActual.x + i < 0 || this.pesaActual.x + i > 24) {col = false;}
+                    if (this.pesaActual.y + j - 1 < 0 || this.pesaActual.y + j - 1 > 9) {col = false;}
+                }
+            }
+        }
+        return col;
+    },
+
 }
 
 var iterar;
@@ -258,7 +274,7 @@ function colocarPesaInici(pesa) {
 //
 //}
 
-window.onload = function() {
+window.onload = function () {
     colocarPesaInici(pesa1);
     document.getElementById("tetris").innerHTML = Joc.pintar();
     document.getElementById("pesaActual").innerHTML = Joc.pesa1.pintarTaulaPesa();
@@ -277,22 +293,22 @@ window.onload = function() {
 //Funcio encarregada de moure el jugador
 //- Comprovar que la direccio introduida sigui valida i assignarla a la pesa
 //- En el cas de que no sigui valida, no es moura
-function mourePesa(jugador){
+function mourePesa(jugador) {
 
 }
 
 //Funcio encarregada de llegir la direccio introduida per teclat
 //- Assigna la direccio introduida a una variable
-function dirKeyPress(e){
-	var keyDown = document.all ? e.which : e.key;
+function dirKeyPress(e) {
+    var keyDown = document.all ? e.which : e.key;
     //La direccio a dalt i a baix estan invertides!
-    if (keyDown == "ArrowDown"){
-		keyPress = 1;
-	}
-	if (keyDown == "ArrowRight"){
-		keyPress = 2;
-	}
-	if (keyDown == "ArrowLeft"){
-		keyPress = 4;
-	}
+    if (keyDown == "ArrowDown") {
+        keyPress = 1;
+    }
+    if (keyDown == "ArrowRight") {
+        keyPress = 2;
+    }
+    if (keyDown == "ArrowLeft") {
+        keyPress = 4;
+    }
 }
