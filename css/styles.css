@@ -1,29 +1,38 @@
 body {
     font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    background-color: #000;
 }
 
 header {
     text-align: center;
 }
 
-#tetris {
+.container {
     position: relative;
     padding: 3em;
     text-align: center;
 }
 
 .taula {
-    border: 1px solid black;
     margin: auto, auto;
     text-align: center;
+    line-height: 1rem;
 }
 
 th, td {
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 .row {
-    padding: 3em;
+    padding: 1em;
 }
+
+div #tetris, 
+div #pesaActual, 
+div #pesaSeguent {
+    font-family: 'Major Mono Display', monospace;
+}
+
 
 

@@ -35,42 +35,43 @@ var Joc = {
     pesaActual: null,
     pesaSeguent: null,
     comptadorPesa: [0, 0, 0, 0, 0, 0, 0],
-    interval: 1000,
+    interval: 100,
 
     iniciarJoc: function () {
-        this.taulerActual[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[1] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[2] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[3] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[4] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[5] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[6] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[7] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[8] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[9] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[10] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[11] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[13] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[14] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[15] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[17] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[18] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[19] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[20] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[21] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[22] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[23] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        this.taulerActual[24] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[1] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[2] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[3] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[4] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[5] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[6] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[7] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[8] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[9] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[10] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[11] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[13] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[14] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[15] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[16] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[17] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[18] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[19] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[20] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[21] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[22] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[23] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        // this.taulerActual[24] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         var p1 = GeneraPesaAleatoria();
-        var p2 = GeneraPesaAleatoria();
         this.pesaActual = new Pesa(p1[0], p1[1], 0, 3);
-        this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
+
+        p1 = GeneraPesaAleatoria();
+        this.pesaSeguent = new Pesa(p1[0], p1[1], 0, 3);
     },
 
-    tecla: function () {},
+    //tecla: function () {},
 
     movimentAuto: function () {
         this.pesaActual.moureAbaix();
@@ -95,15 +96,14 @@ var Joc = {
             var p2 = GeneraPesaAleatoria();
             this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
 
-            //abans de pintar la nova pesa al tauler, convertim l'antiga en mur inferior
+            //abans de pintar la nova pesa al tauler, convertim l'antiga en pila de peces
             for (var i = this.taulerActual.length - 1; i >= 0; i--) {
                 for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
                     if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 10 }
                 }
             }
         }
-
-        else { this.pesaActual.pintarPesaTauler(); }
+        else { this.pesaActual.pintarPesaTauler() }
     },
 
     pintar: function () {
@@ -118,25 +118,25 @@ var Joc = {
             pintarTauler += "<br>";
         }
         pintarTauler += "</div>";
-        //document.getElementById("tetris").innerHTML = pintarTauler;
-        return pintarTauler;
+        document.getElementById("tetris").innerHTML = pintarTauler;
+        //return pintarTauler;
     },
-
 
     colisio: function () {
         var col = false;
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
-                    if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { col = true; }
-                    if (this.pesaActual.x + i < 0 || this.pesaActual.x + i > 24) { col = true; }
-                    if (this.pesaActual.y + j < 0 || this.pesaActual.y + j > 9) { col = true; }
+                    if ((this.pesaActual.x + i < 0) || (this.pesaActual.x + i > 24)) { col = true; }
+                    if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = true; }
+                    
+                    //dona problemes el xoc
+                    // if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { col = true; }
                 }
             }
         }
         return col;
     }
-
 }
 
 
@@ -184,7 +184,7 @@ function GeneraPesaAleatoria() {
                  [[[0, 1, 1, 0],
                    [0, 1, 0, 0],
                    [0, 1, 0, 0],
-                   [0, 0, 0, 0]], "taronga"],
+                   [0, 0, 0, 0]], "taronja"],
 
                  [[[0, 0, 0, 0],
                    [1, 1, 1, 0],
@@ -197,14 +197,14 @@ function GeneraPesaAleatoria() {
 
 //Funcio que rep una pesa i la pinta en una taula
 Pesa.prototype.pintarTaulaPesa = function () {
-    var resultat = "<table border='1'>";
+    var resultat = "<table class='taula'>";
     for (var i = 0; i < this.forma.length; i++) {
         resultat += "<tr>";
         for (var j = 0; j < this.forma[i].length; j++) {
             resultat += "<td>";
             if (this.forma[i][j] == 1) { resultat += "X" }
             else {
-                resultat += "&nbsp;&nbsp;";
+                resultat += "&nbsp;";
             }
             resultat += "</td>";
         }
@@ -266,33 +266,13 @@ Pesa.prototype.rotarEsquerra = function () {
     Pesa.rotarDreta;
 };
 
-
-
-
-
-
-//Codi reciclat Pacman pendent d'aplicar
-
-//function fInterval() {
-//    //var pesa = GeneraPesaAleatoria();
-//    colocarPesaInici(pesa);
-//
-//    //var element = document.getElementById("all");
-//	//document.onkeydown = dirKeyPress;
-//    //comprovarDireccio(keyPress);
-//    //mourePesa();
-//
-//    document.getElementById("tetris").innerHTML = Joc.pintar();
-//    console.log(c);
-//    c++;
-
+//---------------------------------Inici i iteracions Joc---------------------------------
 
 var iterar;
 var keyPress;
 
 function iteracio(){
-    //Joc.pintar();
-    document.getElementById("tetris").innerHTML = Joc.pintar();
+    Joc.pintar();
     Joc.movimentAuto();
     document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
     document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
@@ -301,21 +281,11 @@ function iteracio(){
 function start(){
     Joc.iniciarJoc();
     Joc.pesaActual.pintarPesaTauler();
-    document.getElementById("tetris").innerHTML = Joc.pintar();
-    document.getElementById("pesaActual").innerHTML = Joc.pesa1.pintarTaulaPesa();
-    document.getElementById("pesaSeguent").innerHTML = Joc.pesa2.pintarTaulaPesa();
-
-
+    Joc.pintar();
+    document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
+    document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
+    iterar = setInterval(iteracio, Joc.interval);
 }
-
-iterar = setInterval(iteracio, Joc.interval);
-
-
-
-
-
-
-
 
 
 
