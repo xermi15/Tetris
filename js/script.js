@@ -128,10 +128,9 @@ var Joc = {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
                     if ((this.pesaActual.x + i < 0) || (this.pesaActual.x + i > 24)) { col = true; }
-                    if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = true; }
-                    
-                    //dona problemes el xoc
-                    // if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { col = true; }
+                    else if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = true; }
+                    else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != "0") { col = true; }
+                    else{}
                 }
             }
         }
