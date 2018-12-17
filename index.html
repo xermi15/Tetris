@@ -24,14 +24,30 @@
         <h1>Tetris</h1>
     </header>
 
+    <img src="images/groc.png" id="groc" style="display: none;">
+    <img src="images/lila.png" id="lila" style="display: none;">
+    <img src="images/verd.png" id="verd" style="display: none;">
+    <img src="images/roig.png" id="roig" style="display: none;">
+    <img src="images/taronja.png" id="taronja" style="display: none;">
+    <img src="images/morat.png" id="morat" style="display: none;">
+    <img src="images/blau.png" id="blau" style="display: none;">
+    <img src="images/blanc.png" id="blanc" style="display: none;">
+    <img src="images/negre.png" id="negre" style="display: none;">
+
+    
+
     <div class="container">
         <div class="row justify-content-md-center">
 
             <div class="col-8">
-                <div id="tetris"></div>
+                <!-- esta descentrat! -->
+                <canvas id="tetris" width="200" height="501" style="border: 1px solid white"></canvas>
             </div>
 
             <div class="col-4">
+                <div class="row">
+                   <div>Puntuacio</div>
+                </div>
                 <div class="row">
                    <div>Pesa actual</div>
                 </div>
@@ -51,7 +67,7 @@
         </div>
     </div>
 
-    <div>by xermi15 - v0.3</div>
+    <div>by xermi15 - v0.3.1</div>
 
 <script>start();</script>
 </body>

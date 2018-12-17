@@ -35,7 +35,7 @@ var Joc = {
     pesaActual: null,
     pesaSeguent: null,
     comptadorPesa: [0, 0, 0, 0, 0, 0, 0],
-    interval: 100,
+    interval: 1000,
 
     iniciarJoc: function () {
         // this.taulerActual[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -102,24 +102,116 @@ var Joc = {
                     if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 10 }
                 }
             }
+            Joc.pintar();
         }
-        else { this.pesaActual.pintarPesaTauler() }
+        else { 
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar(); 
+        }
+    },
+    
+    movimentDreta: function () {
+        this.pesaActual.moureDreta();
+
+        //un cop hem mogut la pesa pintem el mapa sense la pesa
+        for (var i = this.taulerActual.length - 1; i >= 0; i--) {
+            for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
+                if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 0 }
+            }
+        }
+
+        //i comprovem si xoca
+        if (this.colisio()) {
+
+            //tornem la pesa a la posicio original abans de la colisio
+            this.pesaActual.moureEsquerra();
+            //la tornem a pintar al tauler
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar();
+        }
+        else { 
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar(); 
+        }
     },
 
-    pintar: function () {
-        var pintarTauler = "<div>";
-        for (var i = 0; i < 25; i++) {
-            for (var j = 0; j < 10; j++) {
-                if (this.taulerActual[i][j] == 1) { pintarTauler += "X" }
-                else if (this.taulerActual[i][j] == 10) { pintarTauler += "M" }
-                else { pintarTauler += "0" }
-                pintarTauler += " ";
+    movimentEsquerra: function () {
+        this.pesaActual.moureEsquerra();
+
+        //un cop hem mogut la pesa pintem el mapa sense la pesa
+        for (var i = this.taulerActual.length - 1; i >= 0; i--) {
+            for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
+                if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 0 }
             }
-            pintarTauler += "<br>";
         }
-        pintarTauler += "</div>";
-        document.getElementById("tetris").innerHTML = pintarTauler;
-        //return pintarTauler;
+
+        //i comprovem si xoca
+        if (this.colisio()) {
+
+            //tornem la pesa a la posicio original abans de la colisio
+            this.pesaActual.moureDreta();
+            //la tornem a pintar al tauler
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar();
+        }
+        else { 
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar(); 
+        }
+    },
+
+    rotar: function () {
+        this.pesaActual.rotarDreta();
+
+        //un cop hem mogut la pesa pintem el mapa sense la pesa
+        for (var i = this.taulerActual.length - 1; i >= 0; i--) {
+            for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
+                if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 0 }
+            }
+        }
+
+        if(descolocatRotacio() == 'dreta'){
+            //tornem la pesa a la posicio original abans de la colisio
+            this.pesaActual.moureEsquerra();
+            //la tornem a pintar al tauler
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar();
+        }
+        if(descolocatRotacio() == 'esquerra'){
+            //tornem la pesa a la posicio original abans de la colisio
+            this.pesaActual.moureDreta();
+            //la tornem a pintar al tauler
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar();
+        }
+        
+
+        //i comprovem si xoca
+        if (this.colisio()) {
+
+            //tornem la pesa a la posicio original abans de la colisio
+            this.pesaActual.rotarEsquerra();
+            //la tornem a pintar al tauler
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar();
+        }
+        else { 
+            this.pesaActual.pintarPesaTauler();
+            Joc.pintar(); 
+        }
+    },
+
+    descolocatRotacio: function(){
+        var col = 'nop';
+        for (var i = 0; i < this.pesaActual.forma.length; i++) {
+            for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
+                if (this.pesaActual.forma[i][j] != 0) {
+                    if (this.pesaActual.y + j <= 0)  { col = 'esquerra' }
+                    if (this.pesaActual.y + j > 9) { col = 'dreta' }
+                }
+            }
+        }
+        return col;
     },
 
     colisio: function () {
@@ -127,19 +219,39 @@ var Joc = {
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
-                    if ((this.pesaActual.x + i < 0) || (this.pesaActual.x + i > 24)) { col = true; }
-                    else if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = true; }
-                    else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != "0") { col = true; }
+                    if ((this.pesaActual.x + i <= 0) || (this.pesaActual.x + i > 24)) { col = true; }
+                    else if ((this.pesaActual.y + j <= 0) || (this.pesaActual.y + j > 9)) { col = true; }
+                    else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { col = true; }
                     else{}
                 }
             }
         }
         return col;
+    },
+
+    pintar: function () {
+        //var pintarTauler = "<div>";
+        var canvas = document.getElementById("tetris");
+        var ctx = canvas.getContext('2d');
+        var img = new Image();
+        for (var i = 0; i < 25; i++) {
+            for (var j = 0; j < 10; j++) {
+
+                if (this.taulerActual[i][j] == 0) { img = document.getElementById("negre") }
+                if (this.taulerActual[i][j] == 1) { img = document.getElementById("groc") }
+                // if (this.taulerActual[i][j] == 2) { img = document.getElementById("lila") }
+                // if (this.taulerActual[i][j] == 3) { img = document.getElementById("verd") }
+                // if (this.taulerActual[i][j] == 4) { img = document.getElementById("roig") }
+                // if (this.taulerActual[i][j] == 5) { img = document.getElementById("blau") }
+                // if (this.taulerActual[i][j] == 6) { img = document.getElementById("taronja") }
+                // if (this.taulerActual[i][j] == 7) { img = document.getElementById("morat") }
+                if (this.taulerActual[i][j] == 10) { img = document.getElementById("blanc") }
+                
+                ctx.drawImage(img, j*20, i*20, 20, 20);
+            }
+        }
     }
 }
-
-
-
 
 
 //---------------------------------Objecte Pesa-----------------------------------
@@ -217,7 +329,16 @@ Pesa.prototype.pintarTaulaPesa = function () {
 Pesa.prototype.pintarPesaTauler = function () {
     for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
-            if (this.forma[i][j] == 1) { Joc.taulerActual[this.x + i][this.y + j] = 1 }
+            if (this.forma[i][j] == 1) { 
+                Joc.taulerActual[this.x + i][this.y + j] = 1;
+                // if(this.color == "groc"){ Joc.taulerActual[this.x + i][this.y + j] = 1 }
+                // if(this.color == "lila"){ Joc.taulerActual[this.x + i][this.y + j] = 2 }
+                // if(this.color == "verd"){ Joc.taulerActual[this.x + i][this.y + j] = 3 }
+                // if(this.color == "roig"){ Joc.taulerActual[this.x + i][this.y + j] = 4 }
+                // if(this.color == "blau"){ Joc.taulerActual[this.x + i][this.y + j] = 5 }
+                // if(this.color == "taronja"){ Joc.taulerActual[this.x + i][this.y + j] = 6 }
+                // if(this.color == "morat"){ Joc.taulerActual[this.x + i][this.y + j] = 7 }
+            }
         }
     }
 };
@@ -228,7 +349,7 @@ Pesa.prototype.pintarPesaTauler = function () {
 
 //Funcio per moure una pesa cap a l'esquerra sempre que es pugui
 Pesa.prototype.moureEsquerra = function () {
-    if ((this.y - 1) > 0) { this.y-- }
+    if ((this.y - 1) >= 0) { this.y-- }
 };
 
 //Funcio per moure una pesa cap a la dreta sempre que es pugui
@@ -286,29 +407,33 @@ function start(){
     iterar = setInterval(iteracio, Joc.interval);
 }
 
+var element = document.getElementById("all");
+document.onkeydown = dirKeyPress;
 
 
 //Funcio encarregada de moure el jugador
 //- Comprovar que la direccio introduida sigui valida i assignarla a la pesa
 //- En el cas de que no sigui valida, no es moura
 
-//function mourePesa(jugador) {
+function mourePesa(jugador) {
 
-//}
+}
 
 //Funcio encarregada de llegir la direccio introduida per teclat
 //- Assigna la direccio introduida a una variable
-
-//function dirKeyPress(e) {
-//    var keyDown = document.all ? e.which : e.key;
-//    //La direccio a dalt i a baix estan invertides!
-//    if (keyDown == "ArrowDown") {
-//        keyPress = 1;
-//    }
-//    if (keyDown == "ArrowRight") {
-//        keyPress = 2;
-//    }
-//    if (keyDown == "ArrowLeft") {
-//        keyPress = 4;
-//    }
-//}
+function dirKeyPress(e) {
+   var keyDown = document.all ? e.which : e.key;
+   //La direccio a dalt i a baix estan invertides!
+   if (keyDown == "ArrowDown") {
+       Joc.movimentAuto();
+   }
+   if (keyDown == "ArrowRight") {
+       Joc.movimentDreta();
+   }
+   if (keyDown == "ArrowLeft") {
+       Joc.movimentEsquerra();
+   }
+   if (keyDown == "ArrowUp") {
+       Joc.pesaActual.rotarDreta();
+   }
+}
