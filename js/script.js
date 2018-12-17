@@ -35,7 +35,8 @@ var Joc = {
     pesaActual: null,
     pesaSeguent: null,
     comptadorPesa: [0, 0, 0, 0, 0, 0, 0],
-    interval: 1000,
+    interval: 3000,
+    max: 0,
 
     iniciarJoc: function () {
         // this.taulerActual[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -84,9 +85,9 @@ var Joc = {
         }
 
         //i comprovem si xoca
-        if (this.colisio()) {
+        if (!this.posicioValida()) {
 
-            //tornem la pesa a la posicio original abans de la colisio
+            //tornem la pesa a la posicio original abans de la posicio no valida
             this.pesaActual.retornarAdalt();
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
@@ -121,9 +122,9 @@ var Joc = {
         }
 
         //i comprovem si xoca
-        if (this.colisio()) {
+        if (!this.posicioValida()) {
 
-            //tornem la pesa a la posicio original abans de la colisio
+            //tornem la pesa a la posicio original abans de la posicio no valida
             this.pesaActual.moureEsquerra();
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
@@ -146,9 +147,9 @@ var Joc = {
         }
 
         //i comprovem si xoca
-        if (this.colisio()) {
+        if (!this.posicioValida()) {
 
-            //tornem la pesa a la posicio original abans de la colisio
+            //tornem la pesa a la posicio original abans de la posicio no valida
             this.pesaActual.moureDreta();
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
@@ -170,26 +171,30 @@ var Joc = {
             }
         }
 
-        if(descolocatRotacio() == 'dreta'){
-            //tornem la pesa a la posicio original abans de la colisio
-            this.pesaActual.moureEsquerra();
+        if(this.descolocatRotacio() == 'dreta'){
+            //tornem la pesa a la posicio original abans de la posicio no valida
+            for (var i = 0; i < Joc.max; i++) {
+                this.pesaActual.moureEsquerra();
+            }
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
             Joc.pintar();
         }
-        if(descolocatRotacio() == 'esquerra'){
-            //tornem la pesa a la posicio original abans de la colisio
-            this.pesaActual.moureDreta();
+
+        if(this.descolocatRotacio() == 'esquerra'){
+            //tornem la pesa a la posicio original abans de la posicio no valida
+            for (var i = 0; i < Joc.max; i++) {
+                this.pesaActual.moureDreta();
+            }
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
             Joc.pintar();
         }
         
-
         //i comprovem si xoca
-        if (this.colisio()) {
+        if (!this.posicioValida()) {
 
-            //tornem la pesa a la posicio original abans de la colisio
+            //tornem la pesa a la posicio original abans de la posicio no valida
             this.pesaActual.rotarEsquerra();
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
@@ -203,25 +208,28 @@ var Joc = {
 
     descolocatRotacio: function(){
         var col = 'nop';
+        var comptador = 0;
+        Joc.max = 0;
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
-                    if (this.pesaActual.y + j <= 0)  { col = 'esquerra' }
-                    if (this.pesaActual.y + j > 9) { col = 'dreta' }
+                    if (this.pesaActual.y + j < 0)  { col = 'esquerra'; comptador++; }
+                    if (this.pesaActual.y + j > 9) { col = 'dreta'; comptador++; }
                 }
             }
+            if(Joc.max < comptador) {Joc.max = comptador}
         }
         return col;
     },
 
-    colisio: function () {
-        var col = false;
+    posicioValida: function () {
+        var col = true;
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
-                    if ((this.pesaActual.x + i <= 0) || (this.pesaActual.x + i > 24)) { col = true; }
-                    else if ((this.pesaActual.y + j <= 0) || (this.pesaActual.y + j > 9)) { col = true; }
-                    else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { col = true; }
+                    if ((this.pesaActual.x + i < 0) || (this.pesaActual.x + i > 24)) { col = false; }
+                    else if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = false; }
+                    else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { col = false; }
                     else{}
                 }
             }
@@ -349,22 +357,22 @@ Pesa.prototype.pintarPesaTauler = function () {
 
 //Funcio per moure una pesa cap a l'esquerra sempre que es pugui
 Pesa.prototype.moureEsquerra = function () {
-    if ((this.y - 1) >= 0) { this.y-- }
+    this.y--
 };
 
 //Funcio per moure una pesa cap a la dreta sempre que es pugui
 Pesa.prototype.moureDreta = function () {
-    if ((this.y + 1) < 9) { this.y++ }
+    this.y++
 };
 
 //Funcio per moure una pesa cap a abaix sempre que es pugui
 Pesa.prototype.moureAbaix = function () {
-    if ((this.x + 1) <= 25) { this.x++ }
+    this.x++
 };
 
 //Funcio per moure una pesa cap a abaix sempre que es pugui
 Pesa.prototype.retornarAdalt = function () {
-    if ((this.x - 1) >= 0) { this.x-- }
+    this.x--
 };
 
 //Funcio per girar una pesa a la dreta
@@ -373,7 +381,7 @@ Pesa.prototype.rotarDreta = function () {
     for (var i = 0; i < this.forma.length; i++) {
         formaNova[i] = new Array();
         for (var j = 0; j < this.forma[i].length; j++) {
-            formaNova[i][j] = this.forma[this.forma[i].length - 1 - j][i];
+            formaNova[i][j] = this.forma[this.forma[i].length - 1-j][i];
         }
     }
     this.forma = formaNova;
@@ -434,6 +442,6 @@ function dirKeyPress(e) {
        Joc.movimentEsquerra();
    }
    if (keyDown == "ArrowUp") {
-       Joc.pesaActual.rotarDreta();
+       Joc.rotar();
    }
 }
