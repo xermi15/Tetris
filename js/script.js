@@ -35,8 +35,9 @@ var Joc = {
     pesaActual: null,
     pesaSeguent: null,
     comptadorPesa: [0, 0, 0, 0, 0, 0, 0],
-    interval: 3000,
+    interval: 1000,
     max: 0,
+    comptadorPeces: 0,
 
     iniciarJoc: function () {
         // this.taulerActual[0] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -97,12 +98,15 @@ var Joc = {
             var p2 = GeneraPesaAleatoria();
             this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
 
+            Joc.actualitzarPuntuacio();
+
             //abans de pintar la nova pesa al tauler, convertim l'antiga en pila de peces
             for (var i = this.taulerActual.length - 1; i >= 0; i--) {
                 for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
                     if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 10 }
                 }
             }
+
             Joc.pintar();
         }
         else { 
@@ -237,6 +241,20 @@ var Joc = {
         return col;
     },
 
+    actualitzarPuntuacio: function () {
+        //Modifiquem la puntuacio quan aconseguim una pesa nova
+        Joc.comptadorPeces++;
+        //mirem si hem pujat de nivell
+        if (Joc.comptadorPeces % 10 == 0) {
+            Joc.interval *= 0.5;
+            Joc.puntuacio += 20;
+            console.log("Level up");
+            console.log(Joc.interval);
+            console.log(this.interval);
+        }
+        Joc.puntuacio += 10;
+    },
+
     pintar: function () {
         //var pintarTauler = "<div>";
         var canvas = document.getElementById("tetris");
@@ -258,6 +276,9 @@ var Joc = {
                 ctx.drawImage(img, j*20, i*20, 20, 20);
             }
         }
+        document.getElementById("puntuacio").innerHTML = Joc.puntuacio;
+        document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
+        document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
     }
 }
 
@@ -402,16 +423,13 @@ var keyPress;
 function iteracio(){
     Joc.pintar();
     Joc.movimentAuto();
-    document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
-    document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
+    Joc.pintar();
 };
 
 function start(){
     Joc.iniciarJoc();
     Joc.pesaActual.pintarPesaTauler();
     Joc.pintar();
-    document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
-    document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
     iterar = setInterval(iteracio, Joc.interval);
 }
 
@@ -419,21 +437,14 @@ var element = document.getElementById("all");
 document.onkeydown = dirKeyPress;
 
 
-//Funcio encarregada de moure el jugador
-//- Comprovar que la direccio introduida sigui valida i assignarla a la pesa
-//- En el cas de que no sigui valida, no es moura
-
-function mourePesa(jugador) {
-
-}
-
 //Funcio encarregada de llegir la direccio introduida per teclat
 //- Assigna la direccio introduida a una variable
 function dirKeyPress(e) {
    var keyDown = document.all ? e.which : e.key;
    //La direccio a dalt i a baix estan invertides!
    if (keyDown == "ArrowDown") {
-       Joc.movimentAuto();
+        Joc.puntuacio++;
+        Joc.movimentAuto();
    }
    if (keyDown == "ArrowRight") {
        Joc.movimentDreta();

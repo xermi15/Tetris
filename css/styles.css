@@ -34,5 +34,8 @@ div #pesaSeguent {
     font-family: 'Major Mono Display', monospace;
 }
 
+div .pesaActual {
+    display: none;
+}
 
 
