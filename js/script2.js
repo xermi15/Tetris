@@ -81,7 +81,7 @@ var Joc = {
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) || (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 0 }
             }
         }
 
@@ -103,15 +103,7 @@ var Joc = {
             //abans de pintar la nova pesa al tauler, convertim l'antiga en pila de peces
             for (var i = this.taulerActual.length - 1; i >= 0; i--) {
                 for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                    if ((this.taulerActual[i][j] != 10) || (this.taulerActual[i][j] != 0)) {
-                        this.taulerActual[i][j] = 10 
-                        // if (this.taulerActual[i][j] != 0) {
-                        //     this.taulerActual[i][j] = 10 
-                        // }
-                        // if (this.taulerActual[i][j] != 10) {
-                        //     this.taulerActual[i][j] = 10 
-                        // }
-                    }
+                    if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 10 }
                 }
             }
 
@@ -129,7 +121,7 @@ var Joc = {
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) || (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 0 }
             }
         }
 
@@ -154,7 +146,7 @@ var Joc = {
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) || (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 0 }
             }
         }
 
@@ -179,7 +171,7 @@ var Joc = {
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) || (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if (this.taulerActual[i][j] == 1) { this.taulerActual[i][j] = 0 }
             }
         }
 
@@ -274,12 +266,12 @@ var Joc = {
 
                 if (this.taulerActual[i][j] == 0) { img = document.getElementById("negre") }
                 if (this.taulerActual[i][j] == 1) { img = document.getElementById("groc") }
-                if (this.taulerActual[i][j] == 2) { img = document.getElementById("lila") }
-                if (this.taulerActual[i][j] == 3) { img = document.getElementById("verd") }
-                if (this.taulerActual[i][j] == 4) { img = document.getElementById("roig") }
-                if (this.taulerActual[i][j] == 5) { img = document.getElementById("blau") }
-                if (this.taulerActual[i][j] == 6) { img = document.getElementById("taronja") }
-                if (this.taulerActual[i][j] == 7) { img = document.getElementById("morat") }
+                // if (this.taulerActual[i][j] == 2) { img = document.getElementById("lila") }
+                // if (this.taulerActual[i][j] == 3) { img = document.getElementById("verd") }
+                // if (this.taulerActual[i][j] == 4) { img = document.getElementById("roig") }
+                // if (this.taulerActual[i][j] == 5) { img = document.getElementById("blau") }
+                // if (this.taulerActual[i][j] == 6) { img = document.getElementById("taronja") }
+                // if (this.taulerActual[i][j] == 7) { img = document.getElementById("morat") }
                 if (this.taulerActual[i][j] == 10) { img = document.getElementById("blanc") }
                 
                 ctx.drawImage(img, j*20, i*20, 20, 20);
@@ -368,14 +360,14 @@ Pesa.prototype.pintarPesaTauler = function () {
     for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
             if (this.forma[i][j] == 1) { 
-                //Joc.taulerActual[this.x + i][this.y + j] = 1;
-                if(this.color == "groc"){ Joc.taulerActual[this.x + i][this.y + j] = 1 }
-                if(this.color == "lila"){ Joc.taulerActual[this.x + i][this.y + j] = 2 }
-                if(this.color == "verd"){ Joc.taulerActual[this.x + i][this.y + j] = 3 }
-                if(this.color == "roig"){ Joc.taulerActual[this.x + i][this.y + j] = 4 }
-                if(this.color == "blau"){ Joc.taulerActual[this.x + i][this.y + j] = 5 }
-                if(this.color == "taronja"){ Joc.taulerActual[this.x + i][this.y + j] = 6 }
-                if(this.color == "morat"){ Joc.taulerActual[this.x + i][this.y + j] = 7 }
+                Joc.taulerActual[this.x + i][this.y + j] = 1;
+                // if(this.color == "groc"){ Joc.taulerActual[this.x + i][this.y + j] = 1 }
+                // if(this.color == "lila"){ Joc.taulerActual[this.x + i][this.y + j] = 2 }
+                // if(this.color == "verd"){ Joc.taulerActual[this.x + i][this.y + j] = 3 }
+                // if(this.color == "roig"){ Joc.taulerActual[this.x + i][this.y + j] = 4 }
+                // if(this.color == "blau"){ Joc.taulerActual[this.x + i][this.y + j] = 5 }
+                // if(this.color == "taronja"){ Joc.taulerActual[this.x + i][this.y + j] = 6 }
+                // if(this.color == "morat"){ Joc.taulerActual[this.x + i][this.y + j] = 7 }
             }
         }
     }
