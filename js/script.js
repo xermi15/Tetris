@@ -235,7 +235,7 @@ var Joc = {
                     else if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = false; }
                     else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { 
                         console.log(this.pesaActual);
-                        if ((this.pesaActual.x == 1) && (this.pesaActual.y == 3)) {
+                        if (this.pesaActual.x == 1) {
                             Joc.finalJoc();
                         } else {
                             col = false; 
