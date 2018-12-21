@@ -233,7 +233,14 @@ var Joc = {
                 if (this.pesaActual.forma[i][j] != 0) {
                     if ((this.pesaActual.x + i < 0) || (this.pesaActual.x + i > 24)) { col = false; }
                     else if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = false; }
-                    else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { col = false; }
+                    else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { 
+                        console.log(this.pesaActual);
+                        if ((this.pesaActual.x == 1) && (this.pesaActual.y == 3)) {
+                            Joc.finalJoc();
+                        } else {
+                            col = false; 
+                        }
+                    } 
                     else{}
                 }
             }
@@ -254,6 +261,17 @@ var Joc = {
             iterar = setInterval(iteracio, Joc.interval);
         }
         Joc.puntuacio += 10;
+    },
+
+    finalJoc: function() {
+        clearInterval(iterar); 
+        //tornem la pesa a la posicio original abans de la posicio no valida
+        this.pesaActual.retornarAdalt();
+        //la tornem a pintar al tauler
+        this.pesaActual.pintarPesaTauler();
+        console.log("finale");
+        document.getElementById("final").innerHTML = "Game Over";
+        
     },
 
     pintar: function () {
@@ -281,6 +299,8 @@ var Joc = {
         //document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
         document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
     }
+
+    
 }
 
 
