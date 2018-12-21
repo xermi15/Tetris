@@ -81,40 +81,32 @@ var Joc = {
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) || (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
             }
         }
 
         //i comprovem si xoca
         if (!this.posicioValida()) {
-
             //tornem la pesa a la posicio original abans de la posicio no valida
             this.pesaActual.retornarAdalt();
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
-            //convertim la pesa actual en la seguent que teniem preparada
-            this.pesaActual = this.pesaSeguent;
-            //i generem una nova pesa per despres
-            var p2 = GeneraPesaAleatoria();
-            this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
-
-            Joc.actualitzarPuntuacio();
-
-            //abans de pintar la nova pesa al tauler, convertim l'antiga en pila de peces
+            //convertim l'antiga en pila de peces
             for (var i = this.taulerActual.length - 1; i >= 0; i--) {
                 for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                    if ((this.taulerActual[i][j] != 10) || (this.taulerActual[i][j] != 0)) {
-                        this.taulerActual[i][j] = 10 
-                        // if (this.taulerActual[i][j] != 0) {
-                        //     this.taulerActual[i][j] = 10 
-                        // }
-                        // if (this.taulerActual[i][j] != 10) {
-                        //     this.taulerActual[i][j] = 10 
-                        // }
+                    if ((this.taulerActual[i][j] != 10) && (this.taulerActual[i][j] != 0)) {
+                        this.taulerActual[i][j] = 10; 
                     }
                 }
             }
-
+            //convertim la pesa actual en la seguent que teniem preparada
+            this.pesaActual = this.pesaSeguent;
+            //i la pintem al tauler
+            this.pesaActual.pintarPesaTauler();
+            //i generem una nova pesa per despres
+            var p2 = GeneraPesaAleatoria();
+            this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
+            Joc.actualitzarPuntuacio();
             Joc.pintar();
         }
         else { 
@@ -129,7 +121,7 @@ var Joc = {
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) || (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
             }
         }
 
@@ -154,7 +146,7 @@ var Joc = {
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) || (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
             }
         }
 
@@ -179,7 +171,7 @@ var Joc = {
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) || (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
             }
         }
 
@@ -286,7 +278,7 @@ var Joc = {
             }
         }
         document.getElementById("puntuacio").innerHTML = Joc.puntuacio;
-        document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
+        //document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
         document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
     }
 }
@@ -430,9 +422,7 @@ var iterar;
 var keyPress;
 
 function iteracio(){
-    Joc.pintar();
     Joc.movimentAuto();
-    Joc.pintar();
 };
 
 function start(){
