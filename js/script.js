@@ -99,6 +99,9 @@ var Joc = {
                     }
                 }
             }
+
+            this.filaSencera();
+
             //convertim la pesa actual en la seguent que teniem preparada
             this.pesaActual = this.pesaSeguent;
             //i la pintem al tauler
@@ -234,7 +237,6 @@ var Joc = {
                     if ((this.pesaActual.x + i < 0) || (this.pesaActual.x + i > 24)) { col = false; }
                     else if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = false; }
                     else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { 
-                        console.log(this.pesaActual);
                         if (this.pesaActual.x == 1) {
                             Joc.finalJoc();
                         } else {
@@ -263,6 +265,39 @@ var Joc = {
         Joc.puntuacio += 10;
     },
 
+    filaSencera: function () {
+        var compta = 0;
+        var linia;
+        passaLinia = true;
+        for (var i = this.taulerActual.length - 1; i >= 0; i--) {
+            linia = i;
+            for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
+                if(this.taulerActual[i][j] == 10) {
+                    compta++;
+                }
+            }
+            if (compta == 10) {
+                //eliminem tota la linia en cas de que sigui sencera
+                for (var j = 9; j >= 0; j--) {
+                    this.taulerActual[linia][j] = 0;
+                }
+
+                //i desplacem les que hi hagi a sobre una posicio avall al tauler
+                for (var i = linia - 1; i >= 0; i--) {
+                    for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
+                        if (this.taulerActual[i][j] == 10) {
+                            this.taulerActual[i+1][j] = 10;
+                        }
+                        if (this.taulerActual[i][j] == 0) {
+                            this.taulerActual[i+1][j] = 0;
+                        }
+                    }
+                }
+            }
+            compta = 0;
+        }
+    },
+
     finalJoc: function() {
         clearInterval(iterar); 
         //tornem la pesa a la posicio original abans de la posicio no valida
@@ -270,7 +305,7 @@ var Joc = {
         //la tornem a pintar al tauler
         this.pesaActual.pintarPesaTauler();
         console.log("finale");
-        document.getElementById("final").innerHTML = "Game Over";
+        document.getElementById("final").outerHTML = "<div id='final' class='final'><div class='centered'>Game Over</div></div>";
         
     },
 
@@ -439,7 +474,6 @@ Pesa.prototype.rotarEsquerra = function () {
 //---------------------------------Inici i iteracions Joc---------------------------------
 
 var iterar;
-var keyPress;
 
 function iteracio(){
     Joc.movimentAuto();
