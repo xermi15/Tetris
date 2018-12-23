@@ -100,6 +100,13 @@ var Joc = {
                 }
             }
 
+            //En el cas de que hi hagi files complertes les eliminara
+            //S'executa quatre vegades perque quatre es el nombre 
+            //maxim de files que es pot eliminar amb una sola pesa
+            //(no es ni elegant ni eficient, pero funciona)
+            this.filaSencera();
+            this.filaSencera();
+            this.filaSencera();
             this.filaSencera();
 
             //convertim la pesa actual en la seguent que teniem preparada
@@ -258,8 +265,6 @@ var Joc = {
             clearInterval(iterar);
             Joc.interval *= 0.9;
             Joc.puntuacio += 20;
-            console.log("Level up");
-            console.log(Joc.interval);
             iterar = setInterval(iteracio, Joc.interval);
         }
         Joc.puntuacio += 10;
@@ -268,7 +273,6 @@ var Joc = {
     filaSencera: function () {
         var compta = 0;
         var linia;
-        passaLinia = true;
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             linia = i;
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
@@ -276,8 +280,9 @@ var Joc = {
                     compta++;
                 }
             }
+            //si una linia esta plena
             if (compta == 10) {
-                //eliminem tota la linia en cas de que sigui sencera
+                //l'eliminem
                 for (var j = 9; j >= 0; j--) {
                     this.taulerActual[linia][j] = 0;
                 }
@@ -304,7 +309,6 @@ var Joc = {
         this.pesaActual.retornarAdalt();
         //la tornem a pintar al tauler
         this.pesaActual.pintarPesaTauler();
-        console.log("finale");
         document.getElementById("final").outerHTML = "<div id='final' class='final'><div class='centered'>Game Over</div></div>";
         
     },
