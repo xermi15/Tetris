@@ -52,12 +52,15 @@ var Joc = {
     //tecla: function () {},
 
     movimentAuto: function () {
+        
         this.pesaActual.moureAbaix();
 
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) {
+                    this.taulerActual[i][j] = 0
+                }
             }
         }
 
@@ -71,7 +74,7 @@ var Joc = {
             for (var i = this.taulerActual.length - 1; i >= 0; i--) {
                 for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
                     if ((this.taulerActual[i][j] != 10) && (this.taulerActual[i][j] != 0)) {
-                        this.taulerActual[i][j] = 10; 
+                        this.taulerActual[i][j] = 10;
                     }
                 }
             }
@@ -94,20 +97,23 @@ var Joc = {
             this.pesaSeguent = new Pesa(p2[0], p2[1], 0, 3);
             Joc.actualitzarPuntuacio();
             Joc.pintar();
-        }
-        else { 
+            
+        } else {
             this.pesaActual.pintarPesaTauler();
-            Joc.pintar(); 
+            Joc.pintar();
         }
     },
-    
+
     movimentDreta: function () {
+        
         this.pesaActual.moureDreta();
 
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) {
+                    this.taulerActual[i][j] = 0
+                }
             }
         }
 
@@ -119,20 +125,23 @@ var Joc = {
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
             Joc.pintar();
-        }
-        else { 
+            
+        } else {
             this.pesaActual.pintarPesaTauler();
-            Joc.pintar(); 
+            Joc.pintar();
         }
     },
 
     movimentEsquerra: function () {
+        
         this.pesaActual.moureEsquerra();
 
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) {
+                    this.taulerActual[i][j] = 0
+                }
             }
         }
 
@@ -144,24 +153,27 @@ var Joc = {
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
             Joc.pintar();
-        }
-        else { 
+            
+        } else {
             this.pesaActual.pintarPesaTauler();
-            Joc.pintar(); 
+            Joc.pintar();
         }
     },
 
     rotar: function () {
+        
         this.pesaActual.rotarDreta();
 
         //un cop hem mogut la pesa pintem el mapa sense la pesa
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) { this.taulerActual[i][j] = 0 }
+                if ((this.taulerActual[i][j] != 0) && (this.taulerActual[i][j] != 10)) {
+                    this.taulerActual[i][j] = 0
+                }
             }
         }
 
-        if(this.descolocatRotacio() == 'dreta'){
+        if (this.descolocatRotacio() == 'dreta') {
             //tornem la pesa a la posicio original abans de la posicio no valida
             for (var i = 0; i < Joc.max; i++) {
                 this.pesaActual.moureEsquerra();
@@ -171,7 +183,7 @@ var Joc = {
             Joc.pintar();
         }
 
-        if(this.descolocatRotacio() == 'esquerra'){
+        if (this.descolocatRotacio() == 'esquerra') {
             //tornem la pesa a la posicio original abans de la posicio no valida
             for (var i = 0; i < Joc.max; i++) {
                 this.pesaActual.moureDreta();
@@ -180,7 +192,7 @@ var Joc = {
             this.pesaActual.pintarPesaTauler();
             Joc.pintar();
         }
-        
+
         //i comprovem si xoca
         if (!this.posicioValida()) {
 
@@ -189,44 +201,57 @@ var Joc = {
             //la tornem a pintar al tauler
             this.pesaActual.pintarPesaTauler();
             Joc.pintar();
-        }
-        else { 
+            
+        } else {
             this.pesaActual.pintarPesaTauler();
-            Joc.pintar(); 
+            Joc.pintar();
         }
     },
 
-    descolocatRotacio: function(){
+    descolocatRotacio: function () {
+        
         var col = 'nop';
         var comptador = 0;
         Joc.max = 0;
+        
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
-                    if (this.pesaActual.y + j < 0)  { col = 'esquerra'; comptador++; }
-                    if (this.pesaActual.y + j > 9) { col = 'dreta'; comptador++; }
+                    if (this.pesaActual.y + j < 0) {
+                        col = 'esquerra';
+                        comptador++;
+                    }
+                    if (this.pesaActual.y + j > 9) {
+                        col = 'dreta';
+                        comptador++;
+                    }
                 }
             }
-            if(Joc.max < comptador) {Joc.max = comptador}
+            if (Joc.max < comptador) {
+                Joc.max = comptador
+            }
         }
         return col;
     },
 
     posicioValida: function () {
+        
         var col = true;
+        
         for (var i = 0; i < this.pesaActual.forma.length; i++) {
             for (var j = 0; j < this.pesaActual.forma[i].length; j++) {
                 if (this.pesaActual.forma[i][j] != 0) {
-                    if ((this.pesaActual.x + i < 0) || (this.pesaActual.x + i > 24)) { col = false; }
-                    else if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) { col = false; }
-                    else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) { 
+                    if ((this.pesaActual.x + i < 0) || (this.pesaActual.x + i > 24)) {
+                        col = false;
+                    } else if ((this.pesaActual.y + j < 0) || (this.pesaActual.y + j > 9)) {
+                        col = false;
+                    } else if ((this.taulerActual[this.pesaActual.x + i][this.pesaActual.y + j]) != 0) {
                         if (this.pesaActual.x == 1) {
                             Joc.finalJoc();
                         } else {
-                            col = false; 
+                            col = false;
                         }
-                    } 
-                    else{}
+                    } else {}
                 }
             }
         }
@@ -234,6 +259,7 @@ var Joc = {
     },
 
     actualitzarPuntuacio: function () {
+        
         //Modifiquem la puntuacio quan aconseguim una pesa nova
         Joc.comptadorPeces++;
         //mirem si hem pujat de nivell
@@ -247,12 +273,14 @@ var Joc = {
     },
 
     filaSencera: function () {
+        
         var compta = 0;
         var linia;
+        
         for (var i = this.taulerActual.length - 1; i >= 0; i--) {
             linia = i;
             for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
-                if(this.taulerActual[i][j] == 10) {
+                if (this.taulerActual[i][j] == 10) {
                     compta++;
                 }
             }
@@ -267,10 +295,10 @@ var Joc = {
                 for (var i = linia - 1; i >= 0; i--) {
                     for (var j = this.taulerActual[i].length - 1; j >= 0; j--) {
                         if (this.taulerActual[i][j] == 10) {
-                            this.taulerActual[i+1][j] = 10;
+                            this.taulerActual[i + 1][j] = 10;
                         }
                         if (this.taulerActual[i][j] == 0) {
-                            this.taulerActual[i+1][j] = 0;
+                            this.taulerActual[i + 1][j] = 0;
                         }
                     }
                 }
@@ -279,43 +307,65 @@ var Joc = {
         }
     },
 
-    finalJoc: function() {
-        clearInterval(iterar); 
+    finalJoc: function () {
+        
+        clearInterval(iterar);
         //tornem la pesa a la posicio original abans de la posicio no valida
         this.pesaActual.retornarAdalt();
         //la tornem a pintar al tauler
         this.pesaActual.pintarPesaTauler();
         document.getElementById("final").outerHTML = "<div id='final' class='final'><div class='centered'>Game Over</div><div><button type='button' class='btn btn-outline-light' onclick='restart()'>RESTART</div>";
-        
+
     },
 
     pintar: function () {
+        
         //var pintarTauler = "<div>";
         var canvas = document.getElementById("tetris");
         var ctx = canvas.getContext('2d');
         var img = new Image();
+        
         for (var i = 0; i < 25; i++) {
             for (var j = 0; j < 10; j++) {
 
-                if (this.taulerActual[i][j] == 0) { img = document.getElementById("negre") }
-                if (this.taulerActual[i][j] == 1) { img = document.getElementById("groc") }
-                if (this.taulerActual[i][j] == 2) { img = document.getElementById("lila") }
-                if (this.taulerActual[i][j] == 3) { img = document.getElementById("verd") }
-                if (this.taulerActual[i][j] == 4) { img = document.getElementById("roig") }
-                if (this.taulerActual[i][j] == 5) { img = document.getElementById("blau") }
-                if (this.taulerActual[i][j] == 6) { img = document.getElementById("taronja") }
-                if (this.taulerActual[i][j] == 7) { img = document.getElementById("morat") }
-                if (this.taulerActual[i][j] == 10) { img = document.getElementById("blanc") }
-                
-                ctx.drawImage(img, j*20, i*20, 20, 20);
+                if (this.taulerActual[i][j] == 0) {
+                    img = document.getElementById("negre")
+                }
+                if (this.taulerActual[i][j] == 1) {
+                    img = document.getElementById("groc")
+                }
+                if (this.taulerActual[i][j] == 2) {
+                    img = document.getElementById("lila")
+                }
+                if (this.taulerActual[i][j] == 3) {
+                    img = document.getElementById("verd")
+                }
+                if (this.taulerActual[i][j] == 4) {
+                    img = document.getElementById("roig")
+                }
+                if (this.taulerActual[i][j] == 5) {
+                    img = document.getElementById("blau")
+                }
+                if (this.taulerActual[i][j] == 6) {
+                    img = document.getElementById("taronja")
+                }
+                if (this.taulerActual[i][j] == 7) {
+                    img = document.getElementById("morat")
+                }
+                if (this.taulerActual[i][j] == 10) {
+                    img = document.getElementById("blanc")
+                }
+
+                ctx.drawImage(img, j * 20, i * 20, 20, 20);
             }
         }
+        
         document.getElementById("puntuacio").innerHTML = Joc.puntuacio;
         //document.getElementById("pesaActual").innerHTML = Joc.pesaActual.pintarTaulaPesa();
         document.getElementById("pesaSeguent").innerHTML = Joc.pesaSeguent.pintarTaulaPesa();
-        document.getElementById("nivell").innerHTML = Math.trunc(Joc.comptadorPeces/10) + 1;
+        document.getElementById("nivell").innerHTML = Math.trunc(Joc.comptadorPeces / 10) + 1;
 
-    }, 
+    },
 
     esborrarTauler: function () {
         for (var i = 0; i < 25; i++) {
@@ -382,13 +432,15 @@ function GeneraPesaAleatoria() {
 
 //Funcio que rep una pesa i la pinta en una taula
 Pesa.prototype.pintarTaulaPesa = function () {
+    
     var resultat = "<table class='taula'>";
     for (var i = 0; i < this.forma.length; i++) {
         resultat += "<tr>";
         for (var j = 0; j < this.forma[i].length; j++) {
             resultat += "<td>";
-            if (this.forma[i][j] == 1) { resultat += "X" }
-            else {
+            if (this.forma[i][j] == 1) {
+                resultat += "X"
+            } else {
                 resultat += "&nbsp;";
             }
             resultat += "</td>";
@@ -401,17 +453,32 @@ Pesa.prototype.pintarTaulaPesa = function () {
 
 //Funcio que pinta la pesa acual dins del tauler actual
 Pesa.prototype.pintarPesaTauler = function () {
+    
     for (var i = 0; i < 4; i++) {
         for (var j = 0; j < 4; j++) {
-            if (this.forma[i][j] == 1) { 
+            if (this.forma[i][j] == 1) {
                 //Joc.taulerActual[this.x + i][this.y + j] = 1;
-                if(this.color == "groc"){ Joc.taulerActual[this.x + i][this.y + j] = 1 }
-                if(this.color == "lila"){ Joc.taulerActual[this.x + i][this.y + j] = 2 }
-                if(this.color == "verd"){ Joc.taulerActual[this.x + i][this.y + j] = 3 }
-                if(this.color == "roig"){ Joc.taulerActual[this.x + i][this.y + j] = 4 }
-                if(this.color == "blau"){ Joc.taulerActual[this.x + i][this.y + j] = 5 }
-                if(this.color == "taronja"){ Joc.taulerActual[this.x + i][this.y + j] = 6 }
-                if(this.color == "morat"){ Joc.taulerActual[this.x + i][this.y + j] = 7 }
+                if (this.color == "groc") {
+                    Joc.taulerActual[this.x + i][this.y + j] = 1
+                }
+                if (this.color == "lila") {
+                    Joc.taulerActual[this.x + i][this.y + j] = 2
+                }
+                if (this.color == "verd") {
+                    Joc.taulerActual[this.x + i][this.y + j] = 3
+                }
+                if (this.color == "roig") {
+                    Joc.taulerActual[this.x + i][this.y + j] = 4
+                }
+                if (this.color == "blau") {
+                    Joc.taulerActual[this.x + i][this.y + j] = 5
+                }
+                if (this.color == "taronja") {
+                    Joc.taulerActual[this.x + i][this.y + j] = 6
+                }
+                if (this.color == "morat") {
+                    Joc.taulerActual[this.x + i][this.y + j] = 7
+                }
             }
         }
     }
@@ -443,11 +510,12 @@ Pesa.prototype.retornarAdalt = function () {
 
 //Funcio per girar una pesa a la dreta
 Pesa.prototype.rotarDreta = function () {
+    
     var formaNova = new Array();
     for (var i = 0; i < this.forma.length; i++) {
         formaNova[i] = new Array();
         for (var j = 0; j < this.forma[i].length; j++) {
-            formaNova[i][j] = this.forma[this.forma[i].length - 1-j][i];
+            formaNova[i][j] = this.forma[this.forma[i].length - 1 - j][i];
         }
     }
     this.forma = formaNova;
@@ -464,21 +532,26 @@ Pesa.prototype.rotarEsquerra = function () {
 
 var iterar;
 
-function iteracio(){
+function iteracio() {
+    
     Joc.movimentAuto();
 };
 
-function start(){
+function start() {
+    
     Joc.iniciarJoc();
     Joc.pesaActual.pintarPesaTauler();
     Joc.pintar();
     iterar = setInterval(iteracio, Joc.interval);
 }
 
-function restart(){
+function restart() {
+    
     clearInterval(iterar);
     Joc.esborrarTauler();
-    puntuacio = 0;
+    Joc.puntuacio = 0;
+    Joc.comptadorPeces = 0;
+    document.getElementById("final").outerHTML = "<div id='final'></div>";
     start();
 }
 
@@ -489,19 +562,20 @@ document.onkeydown = dirKeyPress;
 //Funcio encarregada de llegir la direccio introduida per teclat
 //- Assigna la direccio introduida a una variable
 function dirKeyPress(e) {
-   var keyDown = document.all ? e.which : e.key;
-   //La direccio a dalt i a baix estan invertides!
-   if (keyDown == "ArrowDown") {
+    
+    var keyDown = document.all ? e.which : e.key;
+    //La direccio a dalt i a baix estan invertides!
+    if (keyDown == "ArrowDown") {
         Joc.puntuacio++;
         Joc.movimentAuto();
-   }
-   if (keyDown == "ArrowRight") {
-       Joc.movimentDreta();
-   }
-   if (keyDown == "ArrowLeft") {
-       Joc.movimentEsquerra();
-   }
-   if (keyDown == "ArrowUp") {
-       Joc.rotar();
-   }
+    }
+    if (keyDown == "ArrowRight") {
+        Joc.movimentDreta();
+    }
+    if (keyDown == "ArrowLeft") {
+        Joc.movimentEsquerra();
+    }
+    if (keyDown == "ArrowUp") {
+        Joc.rotar();
+    }
 }
